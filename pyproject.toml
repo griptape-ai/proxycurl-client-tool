@@ -7,7 +7,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = ">=3.9,<3.12"
-griptape = "^0.19.4"
+griptape = ">=0.20,<0.21"
 attr = "^0.3.2"
 schema = "^0.7.5"
 requests = "^2.31.0"
