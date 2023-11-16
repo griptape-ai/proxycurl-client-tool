@@ -1,10 +1,12 @@
 # Proxycurl Client for Griptape
 
-A Proxycurl client for use as a Griptape tool.
+A [Proxycurl](https://nubela.co/proxycurl/) client for use as a Griptape tool.
 
 ## Usage
 
-Simply import the ProxycurlClient into your Griptape project:
+This tool requires a Proxycurl API key. When you have a key, simply import the ProxycurlClient into your Griptape project, configure it as needed, and provide it to a Griptape structure.
+
+Here's an example that uses the ProxycurlClient to tell you about Griptape's LinkedIn profile:
 
 ```python
 import os
