@@ -1,25 +1,84 @@
 # Proxycurl Client for Griptape
 
-A [Proxycurl](https://nubela.co/proxycurl/) client for use as a Griptape tool.
+A Griptape tool for interacting with the [Proxycurl API](https://nubela.co/proxycurl/).
 
 ## Usage
 
 This tool requires a Proxycurl API key. When you have a key, simply import the ProxycurlClient into your Griptape project, configure it as needed, and provide it to a Griptape structure.
 
-Here's an example that uses the ProxycurlClient to tell you about Griptape's LinkedIn profile:
+Here's an example that uses the ProxycurlClient to tell you about Griptape:
 
 ```python
 import os
+from griptape.tools import TaskMemoryClient
 from griptape.structures import Agent
 from proxycurl_client import ProxycurlClient
 
-# You've already set the OPENAI_API_KEY and PROXYCURL_API_KEY environment variables.
-
-agent = Agent(
-    tools=[
-        ProxycurlClient(proxycurl_api_key=os.getenv("PROXYCURL_API_KEY"))
-    ]
+# Create the ProxycurlClient tool
+proxycurl_tool = ProxycurlClient(
+    proxycurl_api_key=os.environ["PROXYCURL_API_KEY"]
 )
 
-agent.run("Use LinkedIn to tell me about the company with id 'griptape-ai'.")
+# Set up an agent using the ProxycurlClient tool
+agent = Agent(
+    tools=[proxycurl_tool, TaskMemoryClient(off_prompt=False)]
+)
+
+# Task: Fetch information for the company Griptape.ai
+agent.run("Tell me about the company profile Griptape.ai.")
+```
+```
+[09/11/23 15:20:13] INFO     Task 68634c7b4d0c4f0fada55180b67ebad6              
+                             Input: Tell me about the company profile           
+                             Griptape.ai.                                       
+[09/11/23 15:20:23] INFO     Subtask 31c5ce53b2ea41f1915a583a2ce9601e           
+                             Thought: To get the company profile of Griptape.ai,
+                             I can use the ProxycurlClient tool with the        
+                             get_company activity. The input required is the    
+                             company_id, which in this case is "griptape-ai".   
+                                                                                
+                             Action: {"name": "ProxycurlClient",
+                             "path": "get_company", "input": {"values":     
+                             {"company_id": "griptape-ai"}}}                    
+[09/11/23 15:20:25] INFO     Subtask 31c5ce53b2ea41f1915a583a2ce9601e           
+                             Response: Output of                             
+                             "ProxycurlClient.get_company" was stored in memory 
+                             with memory_name "TaskMemory" and              
+                             artifact_namespace                                 
+                             "12b38dc2a2db48319060936458d6f616"                 
+[09/11/23 15:20:33] INFO     Subtask 6715ff64e3014118b3da19e3f7270732           
+                             Thought: The output of the                         
+                             ProxycurlClient.get_company action has been stored 
+                             in memory. I can retrieve this information using   
+                             the TaskMemory tool with the summarize         
+                             activity.
+                             Action: {"name": "TaskMemoryClient", "path":   
+                             "summarize", "input": {"values": {"memory_name":   
+                             "TaskMemory", "artifact_namespace":                
+                             "12b38dc2a2db48319060936458d6f616"}}}                                                       
+[09/11/23 15:20:37] INFO     Subtask 6715ff64e3014118b3da19e3f7270732           
+                             Response: The text describes Griptape, a modular
+                             open source framework for building and deploying   
+                             LLM-based agents, pipelines, and workflows.        
+                             Griptape is ideal for creating conversational and  
+                             event-driven AI apps that can access and manipulate
+                             data safely and reliably. The company is privately 
+                             held and was founded in 2023. It is located in     
+                             Mercer Island, Washington, US. Griptape's tagline  
+                             is "Enterprise Middleware for AI Applications". The
+                             company has a follower count of 490 on LinkedIn.   
+                             The text also provides information about similar   
+                             companies in the industry.                         
+[09/11/23 15:20:46] INFO     Task 68634c7b4d0c4f0fada55180b67ebad6              
+                             Output: Griptape.ai is a privately held company    
+                             that was founded in 2023. It is based in Mercer    
+                             Island, Washington, US. The company provides a     
+                             modular open source framework for building and     
+                             deploying LLM-based agents, pipelines, and         
+                             workflows. This makes it ideal for creating        
+                             conversational and event-driven AI apps that can   
+                             access and manipulate data safely and reliably.    
+                             Griptape's tagline is "Enterprise Middleware for AI
+                             Applications". The company has a follower count of 
+                             490 on LinkedIn. 
 ```

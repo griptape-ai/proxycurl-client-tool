@@ -1,8 +1,13 @@
 import os
+from griptape.tools import TaskMemoryClient
 from griptape.structures import Agent
 from proxycurl_client import ProxycurlClient
 
-# You've already set the OPENAI_API_KEY and PROXYCURL_API_KEY environment variables.
+# Create the ProxycurlClient tool
+proxycurl_tool = ProxycurlClient(proxycurl_api_key=os.environ["PROXYCURL_API_KEY"])
 
-agent = Agent(tools=[ProxycurlClient(proxycurl_api_key=os.getenv("PROXYCURL_API_KEY"))])
-agent.run("Use LinkedIn to tell me about the company with id 'griptape-ai'.")
+# Set up an agent using the ProxycurlClient tool
+agent = Agent(tools=[proxycurl_tool, TaskMemoryClient(off_prompt=False)])
+
+# Task: Fetch information for the company Griptape.ai
+agent.run("Tell me about the company profile Griptape.ai.")
