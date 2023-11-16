@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "griptape_proxycurl_client"
+version = "0.1.0"
+description = ""
+authors = ["Griptape <hello@griptape.ai>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.12"
+griptape = "^0.19.4"
+attr = "^0.3.2"
+schema = "^0.7.5"
+requests = "^2.31.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
