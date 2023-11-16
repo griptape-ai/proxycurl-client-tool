@@ -12,7 +12,27 @@ attr = "^0.3.2"
 schema = "^0.7.5"
 requests = "^2.31.0"
 
+[tool.poetry.group.test]
+optional = true
+
+[tool.poetry.group.test.dependencies]
+pytest = "~=7.1"
+pytest-mock = "*"
+mongomock = "*"
+
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.7.0"
+
+[tool.black]
+line-length=120
+skip_magic_trailing_comma = true
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+
+
