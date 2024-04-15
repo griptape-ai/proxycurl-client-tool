@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "griptape_proxycurl_client"
+name = "proxycurl_client"
 version = "0.1.0"
 description = ""
 authors = ["Griptape <hello@griptape.ai>"]
