@@ -1,13 +1,13 @@
 [tool.poetry]
-name = "griptape_proxycurl_client"
+name = "proxycurl_client"
 version = "0.1.0"
 description = ""
 authors = ["Griptape <hello@griptape.ai>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = ">=3.9,<3.12"
-griptape = ">=0.20,<0.21"
+python = "^3.9"
+griptape = ">=0.20"
 
 [tool.poetry.group.test]
 optional = true
@@ -29,6 +29,3 @@ skip_magic_trailing_comma = true
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-
-
-
